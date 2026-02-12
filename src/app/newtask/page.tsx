@@ -10,7 +10,7 @@ export default function TaskManager() {
       
       <div>
         <TaskForm />
-      </div>  
+      </div>
 
       <div>
         <Link href="/tasklist">Task List</Link>
