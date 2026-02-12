@@ -38,13 +38,13 @@ export function TaskForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-4 max-w-md"
+      className="flex flex-col gap-4 max-w-md space-y-5"
     >
       <div>
         <input
           {...register('title')}
           placeholder="Task title"
-          className="border p-2 w-full"
+          className="w-full border border-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         {errors.title && (
           <p className="text-red-500 text-sm">
@@ -57,14 +57,14 @@ export function TaskForm() {
         <textarea
           {...register('description')}
           placeholder="Task description"
-          className="border p-2 w-full"
+          className="w-full border border-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
       <button
         type="submit"
         disabled={isSubmitting || createTask.isPending}
-        className="bg-black text-white p-2 disabled:opacity-50"
+        className="bg-slate-900 text-white px-4 py-2 rounded-lg hover:bg-slate-800 transition"
       >
         {createTask.isPending ? 'Creating...' : 'Create Task'}
       </button>

@@ -54,7 +54,7 @@ export function TaskList({ initialTasks }: Props) {
   }
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="space-y-4">
       {data?.map(task => (
         <div
           key={task.id}
@@ -92,35 +92,37 @@ export function TaskList({ initialTasks }: Props) {
               </div>
             </div>
           ) : (
-            <>
-              <div>
-                <h2 className="font-semibold">{task.title}</h2>
-                <p className="text-sm text-gray-600">
-                  {task.description}
-                </p>
-                <p className="text-xs text-gray-400">
-                  {new Date(task.createdAt).toLocaleString()}
-                </p>
-              </div>
+            <div className='border border-slate-200 rounded-xl p-4 shadow-sm hover:shadow-md transition'>
+              <div className='flex justify-between items-start'>
+                <div>
+                  <h2 className="font-semibold">{task.title}</h2>
+                  <p className="text-sm text-gray-600">
+                    {task.description}
+                  </p>
+                  <p className="text-xs text-gray-400">
+                    {new Date(task.createdAt).toLocaleString()}
+                  </p>
+                </div>
 
-              <div className="flex flex-col gap-2">
-                <button
-                  onClick={() => startEditing(task)}
-                  className="text-blue-500 text-sm"
-                >
-                  Edit
-                </button>
+                <div className="flex flex-col gap-2">
+                  <button
+                    onClick={() => startEditing(task)}
+                    className="text-blue-500 text-sm"
+                  >
+                    Edit
+                  </button>
 
-                <button
-                  onClick={() =>
-                    deleteTask.mutate({ id: task.id })
-                  }
-                  className="text-red-500 text-sm"
-                >
-                  Delete
-                </button>
+                  <button
+                    onClick={() =>
+                      deleteTask.mutate({ id: task.id })
+                    }
+                    className="text-red-500 text-sm"
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
-            </>
+            </div>
           )}
         </div>
       ))}
