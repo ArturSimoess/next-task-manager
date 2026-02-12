@@ -26,7 +26,7 @@ export default function TaskForm() {
 
   const createTask = trpc.task.create.useMutation({
     onSuccess: () => {
-      utils.task.list.invalidate(); // atualiza lista
+      utils.task.list.invalidate();
       reset();
     },
   });

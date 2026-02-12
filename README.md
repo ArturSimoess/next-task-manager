@@ -1,36 +1,130 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+📄 README.md
+🧩 Next Task Manager
 
-## Getting Started
+Aplicação fullstack de gerenciamento de tarefas construída com Next.js (App Router) e tRPC, utilizando SSR para a listagem inicial e interações client-side com tipagem end-to-end.
 
-First, run the development server:
+O objetivo do projeto é demonstrar:
 
-```bash
+Renderização no servidor (SSR)
+
+Integração fullstack com tRPC
+
+Tipagem compartilhada entre frontend e backend
+
+Separação clara de responsabilidades nos componentes
+
+🚀 Tecnologias Utilizadas
+
+Next.js (App Router)
+
+React
+
+TypeScript
+
+tRPC
+
+React Query
+
+Tailwind CSS
+
+🏗️ Arquitetura
+🔹 SSR na página principal
+
+A página de listagem (page.tsx) é renderizada no servidor utilizando:
+
+appRouter.createCaller({})
+
+
+Isso permite:
+
+Buscar os dados no servidor
+
+Enviar HTML já preenchido
+
+Melhorar performance percebida
+
+Manter compatibilidade com SEO
+
+Os dados são serializados e enviados como initialTasks para o componente client.
+
+🔹 Hidratação com initialData
+
+No componente TaskList, utilizo:
+
+trpc.task.list.useQuery(undefined, {
+  initialData: initialTasks,
+});
+
+
+Isso evita uma requisição duplicada no carregamento inicial e mantém o cache sincronizado.
+
+🔹 Separação de responsabilidades
+
+A estrutura foi organizada da seguinte forma:
+
+page.tsx → Server Component (SSR)
+
+TaskList → Container client-side (data + mutations)
+
+TaskItem → Componente de apresentação
+
+TaskEditForm → Responsável apenas pela edição
+
+Essa divisão melhora:
+
+Legibilidade
+
+Manutenção
+
+Escalabilidade
+
+Testabilidade
+
+🔹 Atualização de dados
+
+Após mutações (delete/update), utilizo:
+
+utils.task.list.invalidate();
+
+
+Isso força a revalidação do cache do React Query, garantindo que a lista esteja sempre atualizada.
+
+⚙️ Como rodar o projeto
+1️⃣ Clonar o repositório
+git clone https://github.com/ArturSimoess/next-task-manager.git
+
+2️⃣ Instalar dependências
+npm install
+
+
+ou
+
+yarn
+
+3️⃣ Rodar o projeto
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+A aplicação estará disponível em:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+http://localhost:3000
 
-## Learn More
+📌 Decisões Técnicas
 
-To learn more about Next.js, take a look at the following resources:
+SSR foi escolhido para a listagem inicial para melhorar performance e garantir renderização no servidor.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+tRPC foi utilizado para garantir tipagem end-to-end e reduzir boilerplate.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+A lógica de edição foi isolada em componente próprio para evitar acoplamento excessivo.
 
-## Deploy on Vercel
+A invalidação de cache foi adotada em vez de refetch manual para manter o fluxo declarativo.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+📈 Possíveis Melhorias
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Implementação de optimistic updates
+
+Testes unitários
+
+Paginação ou filtros
+
+Sistema de autenticação
