@@ -1,6 +1,6 @@
 'use client';
 
-import { TaskForm } from "@/components/taskForm";
+import TaskForm from "@/components/taskForm";
 import Link from "next/link";
 
 export default function TaskManager() {

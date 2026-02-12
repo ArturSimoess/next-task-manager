@@ -1,5 +1,5 @@
 import { appRouter } from "@/server/root";
-import { TaskList } from "@/components/taskList";
+import TaskList from "@/components/taskList";
 
 export default async function TaskListPage() {
   const caller = appRouter.createCaller({});

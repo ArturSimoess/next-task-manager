@@ -12,7 +12,7 @@ const taskSchema = z.object({
 
 type TaskFormData = z.infer<typeof taskSchema>;
 
-export function TaskForm() {
+export default function TaskForm() {
   const utils = trpc.useUtils();
 
   const {

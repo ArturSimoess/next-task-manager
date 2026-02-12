@@ -11,7 +11,7 @@ type Props = {
   initialTasks: Task[];
 };
 
-export function TaskList({ initialTasks }: Props) {
+export default function TaskList({ initialTasks }: Props) {
   const [editingId, setEditingId] = useState<string | null>(null);
 
   const utils = trpc.useUtils();

@@ -1,4 +1,4 @@
-import { TaskEditForm } from './taskEditForm';
+import TaskEditForm from './taskEditForm';
 import type { RouterOutputs } from '@/server/root';
 
 type Task = RouterOutputs['task']['list'][number];

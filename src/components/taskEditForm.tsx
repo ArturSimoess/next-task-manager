@@ -11,7 +11,7 @@ type Props = {
   onSave: (title: string, description: string) => void;
 };
 
-export function TaskEditForm({ task, onCancel, onSave }: Props) {
+export default function TaskEditForm({ task, onCancel, onSave }: Props) {
   const [title, setTitle] = useState(task.title);
   const [description, setDescription] = useState(task.description);
 
