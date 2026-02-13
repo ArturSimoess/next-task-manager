@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { trpc } from '@/lib/trpc';
 import type { RouterOutputs } from '@/server/root';
-import { TaskItem } from './taskItem';
+import TaskItem from './taskItem';
 
 type Task = RouterOutputs['task']['list'][number];
 

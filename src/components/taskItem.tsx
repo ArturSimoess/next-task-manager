@@ -12,7 +12,7 @@ type Props = {
   onSave: (title: string, description: string) => void;
 };
 
-export function TaskItem({
+export default function TaskItem({
   task,
   isEditing,
   onStartEdit,
