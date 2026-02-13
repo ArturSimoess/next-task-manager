@@ -26,7 +26,7 @@ The goal of this project is to demonstrate:
 
 ### 🔹 SSR on the Main Page
 
-The task listing page (`page.tsx`) is rendered on the server using:
+The task listing page (`/app/tasklist/page.tsx`) is rendered on the server using:
 
 ```ts
 appRouter.createCaller({})
@@ -64,6 +64,7 @@ The structure was organized as follows:
 - `page.tsx` → Server Component (SSR)
 - `TaskList` → Client-side container (data + mutations)
 - `TaskItem` → Presentation component
+- `TaskForm` → Form to create a new task
 - `TaskEditForm` → Responsible only for editing
 
 This separation improves:
@@ -132,7 +133,6 @@ http://localhost:3000
 
 ## 📈 Possible Improvements
 
-- Implement optimistic updates
 - Add unit testing
-- Implement pagination or filtering
+- Implement pagination/infite scrolling or filtering
 - Add authentication system
