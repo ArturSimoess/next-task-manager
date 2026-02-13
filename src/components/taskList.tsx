@@ -42,13 +42,15 @@ export default function TaskList({ initialTasks }: TaskListProps) {
           onStartEdit={() => setEditingId(task.id)}
           onCancelEdit={() => setEditingId(null)}
           onDelete={() => deleteTask.mutate({ id: task.id })}
-          onSave={(title, description) =>
-            updateTask.mutate({
+          onSave={async (title, description) => {
+            await updateTask.mutateAsync({
               id: task.id,
               title,
               description,
-            })
-          }
+            });
+
+            setEditingId(null);
+          }} 
         />
       ))}
     </div>
