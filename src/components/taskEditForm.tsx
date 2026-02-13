@@ -14,6 +14,16 @@ type TaskEditFormProps = {
 export default function TaskEditForm({ task, onCancel, onSave }: TaskEditFormProps) {
   const [title, setTitle] = useState(task.title);
   const [description, setDescription] = useState(task.description);
+  const [successMessage, setSuccessMessage] = useState('');
+  
+  async function handleSave() {
+    await onSave(title, description);
+    setSuccessMessage('Saved successfully');
+
+    setTimeout(() => {
+      setSuccessMessage('');
+    }, 3000);
+  }
 
   return (
     <div className="border p-4 rounded flex flex-col gap-2">
@@ -31,7 +41,7 @@ export default function TaskEditForm({ task, onCancel, onSave }: TaskEditFormPro
 
       <div className="flex gap-2">
         <button
-          onClick={() => onSave(title, description)}
+          onClick={handleSave}
           className="text-green-600 text-sm"
         >
           Save
@@ -44,6 +54,12 @@ export default function TaskEditForm({ task, onCancel, onSave }: TaskEditFormPro
           Cancel
         </button>
       </div>
+
+      {successMessage && (
+        <span className="text-green-600 text-sm">
+          {successMessage}
+        </span>
+      )}
     </div>
   );
 }
