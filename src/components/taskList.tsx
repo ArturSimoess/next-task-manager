@@ -7,11 +7,11 @@ import { TaskItem } from './taskItem';
 
 type Task = RouterOutputs['task']['list'][number];
 
-type Props = {
+type TaskListProps = {
   initialTasks: Task[];
 };
 
-export default function TaskList({ initialTasks }: Props) {
+export default function TaskList({ initialTasks }: TaskListProps) {
   const [editingId, setEditingId] = useState<string | null>(null);
 
   const utils = trpc.useUtils();

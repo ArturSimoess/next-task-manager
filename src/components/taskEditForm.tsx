@@ -5,13 +5,13 @@ import type { RouterOutputs } from '@/server/root';
 
 type Task = RouterOutputs['task']['list'][number];
 
-type Props = {
+type TaskEditFormProps = {
   task: Task;
   onCancel: () => void;
   onSave: (title: string, description: string) => void;
 };
 
-export default function TaskEditForm({ task, onCancel, onSave }: Props) {
+export default function TaskEditForm({ task, onCancel, onSave }: TaskEditFormProps) {
   const [title, setTitle] = useState(task.title);
   const [description, setDescription] = useState(task.description);
 
