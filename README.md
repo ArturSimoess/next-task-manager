@@ -1,130 +1,138 @@
-📄 README.md
-🧩 Next Task Manager
+# 🧩 Next Task Manager
 
-Aplicação fullstack de gerenciamento de tarefas construída com Next.js (App Router) e tRPC, utilizando SSR para a listagem inicial e interações client-side com tipagem end-to-end.
+A fullstack task management application built with Next.js (App Router) and tRPC, using SSR for the initial task listing and client-side interactions with end-to-end type safety.
 
-O objetivo do projeto é demonstrar:
+The goal of this project is to demonstrate:
 
-Renderização no servidor (SSR)
+- Server-Side Rendering (SSR)
+- Fullstack integration using tRPC
+- Shared typing between frontend and backend
+- Clear separation of responsibilities across components
 
-Integração fullstack com tRPC
+---
 
-Tipagem compartilhada entre frontend e backend
+## 🚀 Technologies Used
 
-Separação clara de responsabilidades nos componentes
+- Next.js (App Router)
+- React
+- TypeScript
+- tRPC
+- React Query
+- Tailwind CSS
 
-🚀 Tecnologias Utilizadas
+---
 
-Next.js (App Router)
+## 🏗️ Architecture
 
-React
+### 🔹 SSR on the Main Page
 
-TypeScript
+The task listing page (`page.tsx`) is rendered on the server using:
 
-tRPC
-
-React Query
-
-Tailwind CSS
-
-🏗️ Arquitetura
-🔹 SSR na página principal
-
-A página de listagem (page.tsx) é renderizada no servidor utilizando:
-
+```ts
 appRouter.createCaller({})
+```
 
+This allows:
 
-Isso permite:
+- Fetching data on the server
+- Sending fully populated HTML to the client
+- Improving perceived performance
+- Maintaining SEO compatibility
 
-Buscar os dados no servidor
+The data is serialized and passed as `initialTasks` to the client component.
 
-Enviar HTML já preenchido
+---
 
-Melhorar performance percebida
+### 🔹 Hydration with initialData
 
-Manter compatibilidade com SEO
+Inside the `TaskList` component:
 
-Os dados são serializados e enviados como initialTasks para o componente client.
-
-🔹 Hidratação com initialData
-
-No componente TaskList, utilizo:
-
+```ts
 trpc.task.list.useQuery(undefined, {
   initialData: initialTasks,
 });
+```
 
+This prevents duplicate requests during the initial load and keeps the React Query cache synchronized.
 
-Isso evita uma requisição duplicada no carregamento inicial e mantém o cache sincronizado.
+---
 
-🔹 Separação de responsabilidades
+### 🔹 Separation of Responsibilities
 
-A estrutura foi organizada da seguinte forma:
+The structure was organized as follows:
 
-page.tsx → Server Component (SSR)
+- `page.tsx` → Server Component (SSR)
+- `TaskList` → Client-side container (data + mutations)
+- `TaskItem` → Presentation component
+- `TaskEditForm` → Responsible only for editing
 
-TaskList → Container client-side (data + mutations)
+This separation improves:
 
-TaskItem → Componente de apresentação
+- Readability
+- Maintainability
+- Scalability
+- Testability
 
-TaskEditForm → Responsável apenas pela edição
+---
 
-Essa divisão melhora:
+### 🔹 Data Updates
 
-Legibilidade
+After mutations (delete/update), the application uses:
 
-Manutenção
-
-Escalabilidade
-
-Testabilidade
-
-🔹 Atualização de dados
-
-Após mutações (delete/update), utilizo:
-
+```ts
 utils.task.list.invalidate();
+```
 
+This forces React Query to revalidate the cache, ensuring the task list is always updated.
 
-Isso força a revalidação do cache do React Query, garantindo que a lista esteja sempre atualizada.
+---
 
-⚙️ Como rodar o projeto
-1️⃣ Clonar o repositório
+## ⚙️ How to Run the Project
+
+### 1️⃣ Clone the Repository
+
+```bash
 git clone https://github.com/ArturSimoess/next-task-manager.git
+```
 
-2️⃣ Instalar dependências
+### 2️⃣ Install Dependencies
+
+```bash
 npm install
+```
 
+or
 
-ou
-
+```bash
 yarn
+```
 
-3️⃣ Rodar o projeto
+### 3️⃣ Run the Project
+
+```bash
 npm run dev
+```
 
+The application will be available at:
 
-A aplicação estará disponível em:
-
+```
 http://localhost:3000
+```
 
-📌 Decisões Técnicas
+---
 
-SSR foi escolhido para a listagem inicial para melhorar performance e garantir renderização no servidor.
+## 📌 Technical Decisions
 
-tRPC foi utilizado para garantir tipagem end-to-end e reduzir boilerplate.
+- SSR was chosen for the initial task listing to improve performance and guarantee server-side rendering.
+- tRPC was used to ensure end-to-end type safety and reduce boilerplate code.
+- Editing logic was isolated into its own component to avoid excessive coupling.
+- Cache invalidation was used instead of manual refetching to keep the data flow declarative.
 
-A lógica de edição foi isolada em componente próprio para evitar acoplamento excessivo.
+---
 
-A invalidação de cache foi adotada em vez de refetch manual para manter o fluxo declarativo.
+## 📈 Possible Improvements
 
-📈 Possíveis Melhorias
-
-Implementação de optimistic updates
-
-Testes unitários
-
-Paginação ou filtros
-
-Sistema de autenticação
+- Implement optimistic updates
+- Add unit testing
+- Implement pagination or filtering
+- Add authentication system
